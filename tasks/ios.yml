@@ -1,0 +1,7 @@
+---
+- name: Get IOS ip interfaces
+  ios_facts:
+    gather_subset: min
+    gather_network_resources: l3_interfaces
+  register: result
+...

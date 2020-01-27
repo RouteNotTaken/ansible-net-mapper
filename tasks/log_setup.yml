@@ -1,0 +1,25 @@
+---
+- name: "BLOCK >> Log prep"
+  block:
+    - name: "LOG >> Get data/time facts"
+      setup:
+        filter: "ansible_date_time"
+        gather_subset: "!all"
+    
+    - name: "LOG >> Store DTG as fact"
+      set_fact:
+        DTG: "{{ ansible_date_time.iso8601_basic_short }}"
+
+    - name: "LOG >> Confirm log directory"
+      file:
+        path: "logs"
+        state: "directory"
+      changed_when: false
+
+    - name: "LOG >> Create directory for this run"
+      set_fact:
+        LOG_PATH: "logs/{{ DTG }}"
+
+  run_once: true
+  delegate_to: localhost
+...

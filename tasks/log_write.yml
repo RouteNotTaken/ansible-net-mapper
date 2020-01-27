@@ -1,0 +1,14 @@
+---
+- name: "LOG >> Create run directory"
+  file:
+    path: logs/{{ DTG }}
+    state: directory
+  changed_when: false
+  delegate_to: localhost
+
+- name: "LOG >> write logs" 
+  local_action:
+    module: copy
+    content: "{{ result.ansible_facts.ansible_network_resources.l3_interfaces | interface_networks }}"
+    dest: logs/{{ DTG }}/{{ inventory_hostname }}.json
+...

@@ -1,0 +1,4 @@
+# file: defaults/main.yml
+---
+log: false
+...
